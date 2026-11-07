@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { site, projects } from "../data/site";
+---
+
+<Layout>
+  <section class="py-20 md:py-28">
+    <p class="mt-6 text-xl text-muted">{site.role}</p>
+    <p class="mt-4 max-w-xl text-lg">{site.intro}</p>
+    <p class="mt-8 flex gap-6 font-medium">
+      <a href="#projects" class="text-accent underline underline-offset-4">See my projects</a>
+      <a href={`mailto:${site.email}`} class="text-accent underline underline-offset-4">Email me</a>
+    </p>
+    <h1
+      class="mt-24 border-t border-line pt-20 font-title text-10xl font-bold leading-none tracking-tight md:text-8xl"
+    >
+      {site.name}
+    </h1>
+  </section>
+
+  <section id="projects" class="scroll-mt-8 pb-16">
+    <h2 class="font-display mb-8 text-3xl font-bold">Projects</h2>
+    {projects.map((p) => <ProjectCard {...p} />)}
+  </section>
+
+  <section id="about" class="scroll-mt-8 border-t border-line py-16">
+    <h2 class="font-display mb-4 text-3xl font-bold">About</h2>
+    <p class="max-w-prose text-lg">{site.about}</p>
+  </section>
+
+  <section id="contact" class="scroll-mt-8 border-t border-line py-16">
+    <h2 class="font-display mb-4 text-3xl font-bold">Contact</h2>
+    <ul class="space-y-1">
+      <li><a class="text-accent underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li><a class="text-accent underline underline-offset-4" href={site.github}>GitHub</a></li>
+      <li><a class="text-accent underline underline-offset-4" href={site.linkedin}>LinkedIn</a></li>
+    </ul>
+  </section>
+</Layout>

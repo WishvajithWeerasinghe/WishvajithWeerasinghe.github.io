@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = `${site.name} | Portfolio`, description = site.intro } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="mx-auto flex max-w-4xl items-center justify-between px-6 py-6">
+      <a href="/" class="font-display text-lg font-bold">{site.name}</a>
+      <nav class="flex gap-6 text-sm text-muted">
+        <a href="#projects" class="hover:text-ink">Projects</a>
+        <a href="#about" class="hover:text-ink">About</a>
+        <a href="#contact" class="hover:text-ink">Contact</a>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-4xl px-6">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-4xl px-6 py-12 text-sm text-muted">
+      &copy; {new Date().getFullYear()} {site.name}
+    </footer>
+  </body>
+</html>
