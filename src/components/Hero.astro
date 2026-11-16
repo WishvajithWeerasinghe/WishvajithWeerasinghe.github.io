@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { hero, site } from "../data/site";
+import "../styles/hero.css";
+---
+
+<section id="home" class="poster-hero" aria-labelledby="hero-title">
+  <div class="poster-window" aria-hidden="true"></div>
+  <div class="poster-topline">
+    <p class="poster-kicker"><Icon name="arrow" size={28} /><span>{hero.kicker.map((line) => <span>{line}</span>)}</span></p>
+    <span class="poster-rule" aria-hidden="true"></span>
+    <p class="poster-edition">Personal portfolio<br />Vol. 01 / {new Date().getFullYear()}</p>
+    <svg class="poster-globe" width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="16" cy="16" r="14" /><ellipse cx="16" cy="16" rx="6" ry="14" /><path d="M2 16h28M5 7h22M5 25h22M16 2v28" /></svg>
+  </div>
+
+  <div class="poster-composition">
+    <p class="poster-headline"><span class="poster-build">{hero.headline}</span><span class="poster-second-line"><span class="poster-outline">{hero.outline}</span> <span class="poster-purpose">{hero.emphasis}</span></span></p>
+    <div class="poster-description">
+      <span class="poster-cross" aria-hidden="true"></span>
+      <p class="poster-role">{site.role}</p>
+      <p class="poster-intro">{site.intro}</p>
+      <a class="poster-project-link" href="#projects">Explore my work<Icon name="diagonal" size={20} /></a>
+    </div>
+  </div>
+
+  <figure class="poster-portrait">
+    <Image src={hero.portrait} alt={hero.portraitAlt} widths={[480, 800, 1120]} sizes="(max-width: 760px) 90vw, 58vw" format="webp" quality={85} loading="eager" fetchpriority="high" class="poster-portrait-image" />
+  </figure>
+  <div class="poster-side-note" aria-hidden="true"><span class="poster-cross"></span><span>{hero.sideNote}</span><span class="poster-side-line"></span><span class="poster-cross"></span></div>
+  <p class="poster-image-note">{hero.portraitNote}</p>
+  <h1 id="hero-title" class="poster-name">{site.name}<span class="poster-period" aria-hidden="true">.</span></h1>
+</section>
+
+<div class="poster-footer"><span>{site.availability}</span><a href="#projects">Scroll to discover<Icon name="down" size={15} /></a><span class="poster-footer-star" aria-hidden="true">✳</span></div>

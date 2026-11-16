@@ -1,40 +1,45 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { site, projects } from "../data/site";
+import { site, projects, projectFilters, interests, achievements } from "../data/site";
+
+const socials = [
+  { label: "GitHub", href: site.github },
+  { label: "LinkedIn", href: site.linkedin },
+].filter(({ href }) => href);
 ---
 
 <Layout>
-  <section class="py-20 md:py-28">
-    <p class="mt-6 text-xl text-muted">{site.role}</p>
-    <p class="mt-4 max-w-xl text-lg">{site.intro}</p>
-    <p class="mt-8 flex gap-6 font-medium">
-      <a href="#projects" class="text-accent underline underline-offset-4">See my projects</a>
-      <a href={`mailto:${site.email}`} class="text-accent underline underline-offset-4">Email me</a>
-    </p>
-    <h1
-      class="mt-24 border-t border-line pt-20 font-title text-10xl font-bold leading-none tracking-tight md:text-8xl"
-    >
-      {site.name}
-    </h1>
+  <Hero />
+
+  <section id="projects" class="section projects-section container" aria-labelledby="projects-title">
+    <div class="section-heading"><div><p class="eyebrow"><span class="section-number">01 /</span> Selected work</p><h2 id="projects-title">Ideas, made real<span class="accent">.</span></h2></div><p>A few things built with intention. And a few ideas for what comes next.</p></div>
+    <div class="projects-toolbar"><div class="project-filters" role="group" aria-label="Filter projects" hidden>{projectFilters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}<span>{filter === "All work" ? projects.length : projects.filter((project) => project.category === filter).length}</span></button>)}</div><p class="project-count" aria-live="polite" aria-atomic="true">{projects.length} projects to explore</p></div>
+    <div class="project-grid">{projects.map((project, index) => <ProjectCard {...project} index={index} />)}</div>
   </section>
 
-  <section id="projects" class="scroll-mt-8 pb-16">
-    <h2 class="font-display mb-8 text-3xl font-bold">Projects</h2>
-    {projects.map((p) => <ProjectCard {...p} />)}
+  <section id="explore" class="explore-section" aria-labelledby="explore-title">
+    <div class="container section">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-number">02 /</span> Beyond the projects</p><h2 id="explore-title">Follow the curiosity<span>.</span></h2></div><p>Interests, rabbit holes, and the things that keep me asking “what if?”</p></div>
+      <div class="interests-grid">{interests.map((interest) => <article class="interest-card"><div class="interest-top"><Icon name={interest.icon} size={29} /><span>{interest.number}</span></div><h3>{interest.title}</h3><p>{interest.description}</p><span class="interest-note">{interest.note}<Icon name="diagonal" size={15} /></span></article>)}</div>
+      <div class="explore-footnote"><span class="small-star">✳</span><p>{site.about}</p><span class="handwritten">Still figuring things out.<br />Enjoying the process.</span></div>
+    </div>
   </section>
 
-  <section id="about" class="scroll-mt-8 border-t border-line py-16">
-    <h2 class="font-display mb-4 text-3xl font-bold">About</h2>
-    <p class="max-w-prose text-lg">{site.about}</p>
+  <section id="achievements" class="section achievements-section container" aria-labelledby="achievements-title">
+    <div class="section-heading"><div><p class="eyebrow"><span class="section-number">03 /</span> Along the way</p><h2 id="achievements-title">Little wins. Big steps<span class="accent">.</span></h2></div><p>A growing collection of milestones. There’s more of the story to come.</p></div>
+    <div class="achievement-list">{achievements.map((achievement) => <article class="achievement-row"><span class="achievement-icon"><Icon name={achievement.icon} size={25} /></span><div class="achievement-info"><span class="achievement-category">{achievement.category}</span><h3>{achievement.title}</h3><p>{achievement.description}</p></div><span class:list={["achievement-date", { "is-placeholder": achievement.placeholder }]}>{achievement.placeholder && <span class="placeholder-dot"></span>}{achievement.date}</span></article>)}</div>
   </section>
 
-  <section id="contact" class="scroll-mt-8 border-t border-line py-16">
-    <h2 class="font-display mb-4 text-3xl font-bold">Contact</h2>
-    <ul class="space-y-1">
-      <li><a class="text-accent underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a></li>
-      <li><a class="text-accent underline underline-offset-4" href={site.github}>GitHub</a></li>
-      <li><a class="text-accent underline underline-offset-4" href={site.linkedin}>LinkedIn</a></li>
-    </ul>
+  <section id="connect" class="connect-section container" aria-labelledby="connect-title">
+    <div class="connect-panel">
+      <div class="connect-top"><span class="eyebrow"><span class="section-number">04 /</span> Open to a conversation</span><span class="connect-spark" aria-hidden="true">✳</span></div>
+      <h2 id="connect-title">Good things start<br />with a <span>hello.</span></h2>
+      <div class="connect-bottom"><p>Have an idea, a question, or just want to say hi?<br />I’d love to hear from you.</p><div class="contact-actions">{site.email ? <><a class="button button-dark" href={`mailto:${site.email}`}>Let’s talk<Icon name="diagonal" size={18} /></a><button class="icon-button copy-email" type="button" data-email={site.email} aria-label="Copy email address" title="Copy email address" hidden><Icon name="copy" size={19} /></button></> : <span class="contact-coming-soon"><Icon name="mail" size={19} />Contact details coming soon</span>}</div></div>
+      <div class="connect-links">{site.email && <a class="email-link" href={`mailto:${site.email}`}>{site.email}</a>}{socials.length > 0 ? <div class="social-links">{socials.map(({ label, href }) => <a href={href} target="_blank" rel="noopener noreferrer">{label}<Icon name="diagonal" size={16} /></a>)}</div> : <span class="connect-signoff">Thanks for stopping by. Stay curious.</span>}</div>
+      <p class="copy-status" role="status" aria-live="polite"></p>
+    </div>
   </section>
 </Layout>

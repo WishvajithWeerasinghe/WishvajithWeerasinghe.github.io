@@ -1,0 +1,39 @@
+---
+import type { Project } from "../data/site";
+interface Props { kind: Project["artwork"]; }
+const { kind } = Astro.props;
+---
+
+<div class:list={["project-artwork", `artwork-${kind}`]} aria-hidden="true">
+  {kind === "portfolio" && (
+    <div class="mini-browser">
+      <div class="browser-top"><span class="browser-dots"><i></i><i></i><i></i></span><span>my little corner of the internet</span></div>
+      <div class="mini-portfolio">
+        <div class="mini-nav"><b>W.</b><span>Work &nbsp; About &nbsp; Connect</span></div>
+        <span class="mini-eyebrow">DESIGN. DEVELOP. DISCOVER.</span>
+        <strong>Made of<br />curiosity<span>.</span></strong>
+        <span class="mini-star">✳</span>
+        <div class="mini-bottom"><span>Ideas into experiences.</span><span>↗</span></div>
+      </div>
+    </div>
+  )}
+  {kind === "planner" && (
+    <div class="planner-window">
+      <div class="planner-sidebar"><span>c<span class="planner-dot">.</span></span><i class="selected"></i><i></i><i></i><i></i></div>
+      <div class="planner-main">
+        <div class="planner-heading"><div><small>LET’S MAKE ROOM FOR GOOD WORK</small><strong>A little more focus.</strong></div><span>☀</span></div>
+        <div class="planner-week"><span>M<b>12</b></span><span>T<b>13</b></span><span class="selected">W<b>14</b></span><span>T<b>15</b></span><span>F<b>16</b></span></div>
+        <div class="planner-task"><span class="task-check">✓</span><span>Make something you’re proud of</span></div>
+        <div class="planner-task"><span class="task-check empty"></span><span>Learn a little something new</span></div>
+        <div class="planner-note">One thing at a time. You’ve got this.</div>
+      </div>
+    </div>
+  )}
+  {kind === "terminal" && (
+    <div class="experiment-window">
+      <div class="experiment-top"><span>~/a-little-curiosity</span><span>− &nbsp; ×</span></div>
+      <div class="experiment-code"><span class="code-comment">// it starts with a question</span><br /><span class="code-keyword">const</span> idea = <span class="code-string">"what if?"</span>;<br /><br /><span class="code-keyword">while</span> (curious) &#123;<br />&nbsp; explore(idea);<br />&nbsp; build.something();<br />&#125;<br /><br /><span class="code-prompt">❯</span> <span class="terminal-cursor"></span></div>
+      <div class="experiment-sticker">keep<br />wondering <span>✳</span></div>
+    </div>
+  )}
+</div>

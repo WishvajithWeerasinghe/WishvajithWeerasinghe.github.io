@@ -1,13 +1,10 @@
 ---
 import "../styles/global.css";
-import { site } from "../data/site";
+import Icon from "../components/Icon.astro";
+import { site, navigation } from "../data/site";
 
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const { title = `${site.name} | Portfolio`, description = site.intro } = Astro.props;
+interface Props { title?: string; description?: string; }
+const { title = `${site.name} — Developer & curious human`, description = site.intro } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,29 +13,35 @@ const { title = `${site.name} | Portfolio`, description = site.intro } = Astro.p
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="theme-color" content="#f7f7f0" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{title}</title>
   </head>
   <body>
-    <header class="mx-auto flex max-w-4xl items-center justify-between px-6 py-6">
-      <a href="/" class="font-display text-lg font-bold">{site.name}</a>
-      <nav class="flex gap-6 text-sm text-muted">
-        <a href="#projects" class="hover:text-ink">Projects</a>
-        <a href="#about" class="hover:text-ink">About</a>
-        <a href="#contact" class="hover:text-ink">Contact</a>
-      </nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#home" class="wordmark" aria-label={`${site.name}, home`}>{site.initials}<span>✳</span></a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          {navigation.map(({ label, href }, i) => <a href={href} class:list={["nav-link", { "nav-connect": href === "#connect" }]} aria-current={i === 0 ? "location" : undefined}>{label}{href === "#connect" && <Icon name="diagonal" size={16} />}</a>)}
+        </nav>
+        <details class="mobile-menu">
+          <summary>Menu<Icon name="menu" size={22} /></summary>
+          <nav aria-label="Mobile navigation">
+            {navigation.map(({ label, href }, i) => <a href={href} class="nav-link" aria-current={i === 0 ? "location" : undefined}><span>{label}</span><Icon name="diagonal" size={18} /></a>)}
+          </nav>
+        </details>
+      </div>
     </header>
-    <main class="mx-auto max-w-4xl px-6">
-      <slot />
-    </main>
-    <footer class="mx-auto max-w-4xl px-6 py-12 text-sm text-muted">
-      &copy; {new Date().getFullYear()} {site.name}
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer container">
+      <a href="#home" class="wordmark" aria-label="Back to home">{site.initials}<span>✳</span></a>
+      <p>© {new Date().getFullYear()} {site.name}</p>
+      <a href="#home" class="back-to-top">Back to top<Icon name="arrow" size={17} /></a>
     </footer>
+    <script src="../scripts/portfolio.ts"></script>
   </body>
 </html>
