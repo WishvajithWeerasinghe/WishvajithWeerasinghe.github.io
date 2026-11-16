@@ -52,7 +52,7 @@
 .poster-side-note > span:nth-child(2) { writing-mode: vertical-rl; font-family: var(--font-label); font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
 .poster-side-line { width: 1px; flex: 1; min-height: 25px; max-height: 90px; background: #897b68; }
 .poster-image-note { position: absolute; right: var(--poster-gutter); bottom: 19%; z-index: 4; max-width: 115px; font-family: var(--font-label); font-size: 8px; line-height: 1.5; text-transform: uppercase; letter-spacing: .05em; }
-.poster-name { position: relative; z-index: 4; flex-shrink: 0; width: 100%; margin-top: auto; padding: 0 var(--poster-gutter) 9px; color: var(--poster-orange); font-family: var(--font-poster); font-size: 8.5vw; font-weight: 400; letter-spacing: -.03em; line-height: 1.05; text-transform: uppercase; white-space: nowrap; }
+.poster-name { position: relative; bottom: 24px; z-index: 4; flex-shrink: 0; width: 100%; margin-top: auto; padding: 0 var(--poster-gutter) 9px; color: var(--poster-orange); font-family: var(--font-poster); font-size: 8.5vw; font-weight: 400; letter-spacing: -.03em; line-height: 1.05; text-transform: uppercase; white-space: nowrap; }
 .poster-period { letter-spacing: -.09em; }
 .poster-footer { display: flex; align-items: center; gap: 20px; padding: 15px var(--poster-gutter); border-top: 1px solid #b7aa94; border-bottom: 1px solid #b7aa94; color: #4f4435; background: var(--poster-paper); font-family: var(--font-label); font-size: 10px; text-transform: uppercase; letter-spacing: .03em; }
 .poster-footer > a { display: inline-flex; align-items: center; gap: 13px; margin-left: auto; }
