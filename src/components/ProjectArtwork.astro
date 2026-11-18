@@ -1,10 +1,19 @@
 ---
-import type { Project } from "../data/site";
-interface Props { kind: Project["artwork"]; }
-const { kind } = Astro.props;
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+interface Props { project: CollectionEntry<"projects">; }
+const { title, image, imageAlt, artwork } = Astro.props.project.data;
+// A screenshot wins; otherwise use a built-in illustration; otherwise a simple title card.
+const kind = image ? "image" : (artwork ?? "plain");
 ---
 
+{image ? (
+  <div class="project-artwork artwork-image">
+    <Image src={image} alt={imageAlt ?? ""} widths={[400, 800]} sizes="(max-width: 760px) 90vw, 33vw" format="webp" class="project-screenshot" />
+  </div>
+) : (
 <div class:list={["project-artwork", `artwork-${kind}`]} aria-hidden="true">
+  {kind === "plain" && <div class="plain-artwork"><span>✳</span><strong>{title}</strong></div>}
   {kind === "portfolio" && (
     <div class="mini-browser">
       <div class="browser-top"><span class="browser-dots"><i></i><i></i><i></i></span><span>my little corner of the internet</span></div>
@@ -37,3 +46,4 @@ const { kind } = Astro.props;
     </div>
   )}
 </div>
+)}

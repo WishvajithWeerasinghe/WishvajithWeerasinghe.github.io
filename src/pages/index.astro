@@ -3,7 +3,16 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { site, projects, projectFilters, interests, achievements } from "../data/site";
+import { getCollection } from "astro:content";
+import { site } from "../data/site";
+
+// Content comes from src/content/<section>/*.md — add a file there to add an item.
+const visible = <T extends { data: { draft: boolean; order: number } }>(items: T[]) =>
+  items.filter((item) => !item.data.draft).sort((a, b) => a.data.order - b.data.order);
+const projects = visible(await getCollection("projects"));
+const interests = visible(await getCollection("explore"));
+const achievements = visible(await getCollection("achievements"));
+const projectFilters = ["All work", ...new Set(projects.map((project) => project.data.category))];
 
 const socials = [
   { label: "GitHub", href: site.github },
@@ -15,22 +24,22 @@ const socials = [
   <Hero />
 
   <section id="projects" class="section projects-section container" aria-labelledby="projects-title">
-    <div class="section-heading"><div><p class="eyebrow"><span class="section-number">01 /</span> Selected work</p><h2 id="projects-title">Ideas, made real<span class="accent">.</span></h2></div><p>A few things built with intention. And a few ideas for what comes next.</p></div>
-    <div class="projects-toolbar"><div class="project-filters" role="group" aria-label="Filter projects" hidden>{projectFilters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}<span>{filter === "All work" ? projects.length : projects.filter((project) => project.category === filter).length}</span></button>)}</div><p class="project-count" aria-live="polite" aria-atomic="true">{projects.length} projects to explore</p></div>
-    <div class="project-grid">{projects.map((project, index) => <ProjectCard {...project} index={index} />)}</div>
+    <div class="section-heading"><div><p class="eyebrow"><span class="section-number"></span> Projects</p><h2 id="projects-title">Ideas, made real<span class="accent">.</span></h2></div><p>A few things built with intention. And a few ideas for what comes next.</p></div>
+    <div class="projects-toolbar"><div class="project-filters" role="group" aria-label="Filter projects" hidden>{projectFilters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}<span>{filter === "All work" ? projects.length : projects.filter((project) => project.data.category === filter).length}</span></button>)}</div><p class="project-count" aria-live="polite" aria-atomic="true">{projects.length} {projects.length === 1 ? "project" : "projects"} to explore</p></div>
+    <div class="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
   </section>
 
   <section id="explore" class="explore-section" aria-labelledby="explore-title">
     <div class="container section">
       <div class="section-heading"><div><p class="eyebrow"><span class="section-number">02 /</span> Beyond the projects</p><h2 id="explore-title">Follow the curiosity<span>.</span></h2></div><p>Interests, rabbit holes, and the things that keep me asking “what if?”</p></div>
-      <div class="interests-grid">{interests.map((interest) => <article class="interest-card"><div class="interest-top"><Icon name={interest.icon} size={29} /><span>{interest.number}</span></div><h3>{interest.title}</h3><p>{interest.description}</p><span class="interest-note">{interest.note}<Icon name="diagonal" size={15} /></span></article>)}</div>
+      <div class="interests-grid">{interests.map((interest, index) => <article class="interest-card"><div class="interest-top"><Icon name={interest.data.icon} size={29} /><span>{String(index + 1).padStart(2, "0")}</span></div><h3>{interest.data.title}</h3><p>{interest.body?.trim()}</p>{interest.data.note && <span class="interest-note">{interest.data.note}<Icon name="diagonal" size={15} /></span>}</article>)}</div>
       <div class="explore-footnote"><span class="small-star">✳</span><p>{site.about}</p><span class="handwritten">Still figuring things out.<br />Enjoying the process.</span></div>
     </div>
   </section>
 
   <section id="achievements" class="section achievements-section container" aria-labelledby="achievements-title">
     <div class="section-heading"><div><p class="eyebrow"><span class="section-number">03 /</span> Along the way</p><h2 id="achievements-title">Little wins. Big steps<span class="accent">.</span></h2></div><p>A growing collection of milestones. There’s more of the story to come.</p></div>
-    <div class="achievement-list">{achievements.map((achievement) => <article class="achievement-row"><span class="achievement-icon"><Icon name={achievement.icon} size={25} /></span><div class="achievement-info"><span class="achievement-category">{achievement.category}</span><h3>{achievement.title}</h3><p>{achievement.description}</p></div><span class:list={["achievement-date", { "is-placeholder": achievement.placeholder }]}>{achievement.placeholder && <span class="placeholder-dot"></span>}{achievement.date}</span></article>)}</div>
+    <div class="achievement-list">{achievements.map(({ data, body }) => <article class="achievement-row"><span class="achievement-icon"><Icon name={data.icon} size={25} /></span><div class="achievement-info"><span class="achievement-category">{data.category}</span><h3>{data.title}</h3><p>{body?.trim()}</p></div><span class:list={["achievement-date", { "is-placeholder": data.placeholder }]}>{data.placeholder && <span class="placeholder-dot"></span>}{data.date}</span></article>)}</div>
   </section>
 
   <section id="connect" class="connect-section container" aria-labelledby="connect-title">
