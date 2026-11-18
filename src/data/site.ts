@@ -5,7 +5,7 @@ import heroPortrait from "../assets/hero-portrait.png";
 export const site = {
   name: "Wishavjith Weerasinghe",
   initials: "WW",
-  role: "Software developer & university student",
+  role: "university student",
   intro:
     "I build web apps and AI tools, and I like turning rough ideas into things people can actually use.",
   about:
@@ -20,9 +20,9 @@ export const site = {
 // Hero portrait: a transparent café cutout from src/assets/hero-portrait.png.
 // Replace that file to update the photo, then rebuild for production/preview.
 export const hero = {
-  headline: "Build",
-  outline: "With",
-  emphasis: "Purpose.",
+  headline: "CODE",
+  outline: "FOR",
+  emphasis: "CHANGE.",
   kicker: ["Code. Curiosity.", "Ideas into reality."],
   portrait: heroPortrait,
   portraitAlt: "Black-and-white portrait of Wishavjith working on a laptop at a café table, holding a cup of coffee.",

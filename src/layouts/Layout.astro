@@ -24,7 +24,7 @@ const { title = `${site.name} — Developer & curious human`, description = site
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
       <div class="container header-inner">
-        <a href="#home" class="wordmark" aria-label={`${site.name}, home`}>{site.initials}<span>✳</span></a>
+        <a href="#home" class="wordmark" aria-label={`${site.name}, home`}>{site.initials}<span></span></a>
         <nav class="desktop-nav" aria-label="Main navigation">
           {navigation.map(({ label, href }, i) => <a href={href} class:list={["nav-link", { "nav-connect": href === "#connect" }]} aria-current={i === 0 ? "location" : undefined}>{label}{href === "#connect" && <Icon name="diagonal" size={16} />}</a>)}
         </nav>

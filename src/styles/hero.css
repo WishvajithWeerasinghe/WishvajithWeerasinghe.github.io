@@ -14,14 +14,14 @@
 .header-inner { width: calc(100% - var(--poster-gutter) * 2); max-width: none; }
 .site-header .wordmark { font-family: var(--font-poster); letter-spacing: -.03em; font-weight: 400; }
 .site-header .wordmark > span { color: var(--poster-orange); }
-.site-header .nav-link { color: #51473c; font-family: var(--font-label); font-size: 11px; }
+.site-header .nav-link { color: #51473c; font-family: var(--font-label); font-size: 13px; }
 .site-header .nav-link:hover, .site-header .nav-link[aria-current] { color: #942f0b; }
 .site-header .nav-connect { border-color: #a99b86; border-radius: 0; }
 .site-header .nav-connect:hover, .site-header .nav-connect[aria-current] { background: #ddd0bb; }
 
 .poster-hero { position: relative; isolation: isolate; display: flex; flex-direction: column; min-height: calc(100dvh - var(--header-height)); background: var(--poster-paper); color: var(--poster-ink); overflow: clip; }
 .poster-hero::after { content: ""; position: absolute; inset: 0; z-index: 6; pointer-events: none; background-image: url("/images/paper-grain.svg"); opacity: .6; mix-blend-mode: multiply; }
-.poster-window { position: absolute; top: 0; bottom: 0; right: 18%; width: 19%; z-index: -1; background: linear-gradient(90deg, #c2b9aa 0, #8e887c 4%, #33322e 5%, #1a1b19 10%, #2a2a25 12%, #121412 14%, #191b18 84%, #373832 85%, #0c0e0c 88%, #1d201b 94%, #58584b 95%, #191b17 100%); box-shadow: -8px 0 15px #50443225; }
+.poster-window { position: absolute; top: 0; bottom: 0; right: 0; width: 19%; z-index: -1; background: linear-gradient(90deg, #c2b9aa 0, #8e887c 4%, #33322e 5%, #1a1b19 10%, #2a2a25 12%, #121412 14%, #191b18 84%, #373832 85%, #0c0e0c 88%, #1d201b 94%, #58584b 95%, #191b17 100%); box-shadow: -8px 0 15px #50443225; }
 .poster-topline { display: flex; align-items: center; gap: 22px; padding: 26px var(--poster-gutter) 17px; position: relative; z-index: 4; }
 .poster-kicker { display: flex; align-items: center; gap: 19px; flex-shrink: 0; font-family: var(--font-label); font-size: 10px; font-weight: 600; line-height: 1.25; letter-spacing: .055em; text-transform: uppercase; }
 .poster-kicker > span > span { display: block; }
@@ -46,12 +46,13 @@
 .poster-project-link:hover { color: #8e2f13; }
 .poster-project-link svg { transition: transform .2s; }
 .poster-project-link:hover svg { transform: translate(3px, -3px); }
-.poster-portrait { position: absolute; z-index: 2; right: 4%; bottom: 0; width: 61%; height: calc(100% - 100px); margin: 0; pointer-events: none; }
-.poster-portrait-image { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left bottom; filter: contrast(1.07); }
+.poster-portrait { position: absolute; z-index: 2; right: 4%; bottom: 0; width: 61%; height: calc(100% - 100px); margin: 0; pointer-events: none; transform: scale(.95); transform-origin: center bottom; }
+.poster-portrait-image { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; filter: contrast(1.07); }
 .poster-side-note { position: absolute; z-index: 4; right: calc(var(--poster-gutter) - 1px); top: 108px; bottom: 31%; display: flex; flex-direction: column; align-items: center; gap: 23px; }
 .poster-side-note > span:nth-child(2) { writing-mode: vertical-rl; font-family: var(--font-label); font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
-.poster-side-line { width: 1px; flex: 1; min-height: 25px; max-height: 90px; background: #897b68; }
+.poster-side-line { width: 1px; flex: 1; min-height: 25px; max-height: 90px; background: currentColor; }
 .poster-image-note { position: absolute; right: var(--poster-gutter); bottom: 19%; z-index: 4; max-width: 115px; font-family: var(--font-label); font-size: 8px; line-height: 1.5; text-transform: uppercase; letter-spacing: .05em; }
+.poster-edition, .poster-globe, .poster-side-note, .poster-image-note { color: var(--poster-paper); }
 .poster-name { position: relative; bottom: 24px; z-index: 4; flex-shrink: 0; width: 100%; margin-top: auto; padding: 0 var(--poster-gutter) 9px; color: var(--poster-orange); font-family: var(--font-poster); font-size: 8.5vw; font-weight: 400; letter-spacing: -.03em; line-height: 1.05; text-transform: uppercase; white-space: nowrap; }
 .poster-period { letter-spacing: -.09em; }
 .poster-footer { display: flex; align-items: center; gap: 20px; padding: 15px var(--poster-gutter); border-top: 1px solid #b7aa94; border-bottom: 1px solid #b7aa94; color: #4f4435; background: var(--poster-paper); font-family: var(--font-label); font-size: 10px; text-transform: uppercase; letter-spacing: .03em; }
@@ -74,7 +75,7 @@
 }
 @media (max-width: 760px) {
   .site-header .mobile-menu nav { background: var(--poster-paper); border-color: #bcb19f; }
-  .site-header .mobile-menu .nav-link { font-size: 13px; }
+  .site-header .mobile-menu .nav-link { font-size: 15px; }
   .site-header .mobile-menu .nav-link[aria-current] { background: #ddcfb9; }
   .poster-topline { padding-top: 22px; padding-bottom: 18px; gap: 13px; }
   .poster-kicker { gap: 11px; font-size: 8px; letter-spacing: 0; }
@@ -82,7 +83,8 @@
   .poster-rule { display: none; }
   .poster-edition { font-size: 8px; letter-spacing: 0; }
   .poster-globe { width: 23px; height: 23px; }
-  .poster-window { top: 80px; right: 13%; width: 24%; }
+  .poster-edition, .poster-globe { color: var(--poster-ink); }
+  .poster-window { top: 80px; right: 0; width: 24%; }
   .poster-composition { padding-top: 6px; padding-bottom: 18px; }
   .poster-build { font-size: min(42vw, 23dvh); line-height: 1.02; }
   .poster-second-line { margin-top: 1px; font-size: min(24vw, 14dvh); gap: .08em; }
@@ -100,7 +102,7 @@
   .poster-side-note > span:nth-child(2) { font-size: 7px; letter-spacing: .07em; }
   .poster-side-note .poster-side-line, .poster-side-note .poster-cross:last-child { display: none; }
   .poster-side-note .poster-cross { transform: scale(.7); }
-  .poster-image-note { right: 9px; bottom: 16%; max-width: 85px; font-size: 6px; background: var(--poster-paper); padding: 4px; }
+  .poster-image-note { right: 9px; bottom: 16%; max-width: 85px; font-size: 6px; background: rgb(18 20 18 / 80%); padding: 4px; }
   .poster-name { font-size: 8.5vw; padding-bottom: 8px; letter-spacing: -.035em; }
   .poster-footer { padding-block: 16px; gap: 12px; font-size: 7px; }
   .poster-footer > span:first-child { max-width: 150px; }
