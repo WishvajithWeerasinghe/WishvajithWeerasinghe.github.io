@@ -17,16 +17,16 @@ export const site = {
   linkedin: "",
 };
 
-// The portrait is an editorial placeholder based on the supplied reference.
-// Replace src/assets/hero-portrait.png with your own cutout, then update its alt/note.
+// Hero portrait: a transparent café cutout from src/assets/hero-portrait.png.
+// Replace that file to update the photo, then rebuild for production/preview.
 export const hero = {
   headline: "Build",
   outline: "With",
   emphasis: "Purpose.",
   kicker: ["Code. Curiosity.", "Ideas into reality."],
   portrait: heroPortrait,
-  portraitAlt: "Black-and-white café portrait adapted from the design reference, used as a placeholder.",
-  portraitNote: "Reference portrait / placeholder",
+  portraitAlt: "Black-and-white portrait of Wishavjith working on a laptop at a café table, holding a cup of coffee.",
+  portraitNote: "Ideas, coffee & code",
   sideNote: "Ideas → Code → Experiences",
 };
 
