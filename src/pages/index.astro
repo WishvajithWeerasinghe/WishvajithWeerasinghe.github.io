@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Icon from "../components/Icon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import AchievementItem from "../components/AchievementItem.astro";
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
 
@@ -31,24 +32,29 @@ const socials = [
 
   <section id="explore" class="explore-section" aria-labelledby="explore-title">
     <div class="container section">
-      <div class="section-heading"><div><p class="eyebrow"><span class="section-number">02 /</span> Beyond the projects</p><h2 id="explore-title">Follow the curiosity<span>.</span></h2></div><p>Interests, rabbit holes, and the things that keep me asking “what if?”</p></div>
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-number"></span>Beyond the projects</p><h2 id="explore-title">Follow the curiosity<span>.</span></h2></div><p>Interests, rabbit holes, and the things that keep me asking “what if?”</p></div>
       <div class="interests-grid">{interests.map((interest, index) => <article class="interest-card"><div class="interest-top"><Icon name={interest.data.icon} size={29} /><span>{String(index + 1).padStart(2, "0")}</span></div><h3>{interest.data.title}</h3><p>{interest.body?.trim()}</p>{interest.data.note && <span class="interest-note">{interest.data.note}<Icon name="diagonal" size={15} /></span>}</article>)}</div>
       <div class="explore-footnote"><span class="small-star">✳</span><p>{site.about}</p><span class="handwritten">Still figuring things out.<br />Enjoying the process.</span></div>
     </div>
   </section>
 
   <section id="achievements" class="section achievements-section container" aria-labelledby="achievements-title">
-    <div class="section-heading"><div><p class="eyebrow"><span class="section-number">03 /</span> Along the way</p><h2 id="achievements-title">Little wins. Big steps<span class="accent">.</span></h2></div><p>A growing collection of milestones. There’s more of the story to come.</p></div>
-    <div class="achievement-list">{achievements.map(({ data, body }) => <article class="achievement-row"><span class="achievement-icon"><Icon name={data.icon} size={25} /></span><div class="achievement-info"><span class="achievement-category">{data.category}</span><h3>{data.title}</h3><p>{body?.trim()}</p></div><span class:list={["achievement-date", { "is-placeholder": data.placeholder }]}>{data.placeholder && <span class="placeholder-dot"></span>}{data.date}</span></article>)}</div>
+    <div class="section-heading"><div><p class="eyebrow"><span class="section-number"></span></p><h2 id="achievements-title">Little wins. Big steps<span class="accent">.</span></h2></div><p>A growing collection of milestones. There’s more of the story to come.</p></div>
+    <div class="achievement-list">{achievements.map((achievement) => <AchievementItem achievement={achievement} />)}</div>
   </section>
 
   <section id="connect" class="connect-section container" aria-labelledby="connect-title">
     <div class="connect-panel">
-      <div class="connect-top"><span class="eyebrow"><span class="section-number">04 /</span> Open to a conversation</span><span class="connect-spark" aria-hidden="true">✳</span></div>
+      <div class="connect-top"><span class="eyebrow"><span class="section-number"></span> Open to a conversation</span><span class="connect-spark" aria-hidden="true">✳</span></div>
       <h2 id="connect-title">Good things start<br />with a <span>hello.</span></h2>
-      <div class="connect-bottom"><p>Have an idea, a question, or just want to say hi?<br />I’d love to hear from you.</p><div class="contact-actions">{site.email ? <><a class="button button-dark" href={`mailto:${site.email}`}>Let’s talk<Icon name="diagonal" size={18} /></a><button class="icon-button copy-email" type="button" data-email={site.email} aria-label="Copy email address" title="Copy email address" hidden><Icon name="copy" size={19} /></button></> : <span class="contact-coming-soon"><Icon name="mail" size={19} />Contact details coming soon</span>}</div></div>
-      <div class="connect-links">{site.email && <a class="email-link" href={`mailto:${site.email}`}>{site.email}</a>}{socials.length > 0 ? <div class="social-links">{socials.map(({ label, href }) => <a href={href} target="_blank" rel="noopener noreferrer">{label}<Icon name="diagonal" size={16} /></a>)}</div> : <span class="connect-signoff">Thanks for stopping by. Stay curious.</span>}</div>
-      <p class="copy-status" role="status" aria-live="polite"></p>
+      <div class="connect-bottom">
+        <p>Have an idea, a question, or just want to say hi?<br />I’d love to hear from you.</p>
+        <div class="contact-actions">
+          {site.email && <a class="email-link" href={`mailto:${site.email}`}><Icon name="mail" size={20} /><span>{site.email}</span></a>}
+          {socials.map(({ label, href }) => <a href={href} target="_blank" rel="noopener noreferrer">{label === "LinkedIn" && <Icon name="linkedin" size={20} />}<span>{label}</span></a>)}
+          {!site.email && socials.length === 0 && <span class="contact-coming-soon"><Icon name="mail" size={19} />Contact details coming soon</span>}
+        </div>
+      </div>
     </div>
   </section>
 </Layout>

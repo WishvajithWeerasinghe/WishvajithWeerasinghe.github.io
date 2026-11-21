@@ -40,13 +40,19 @@ const explore = defineCollection({
 
 const achievements = defineCollection({
   loader: glob({ pattern: "[^_]*.md", base: "./src/content/achievements" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     category: z.string(),
     date: z.string(),
     icon: icon.default("trophy"),
     order: z.number().default(100),
     placeholder: z.boolean().default(false),
+    gallery: z.array(z.object({
+      title: z.string(),
+      caption: z.string(),
+      image: image().optional(),
+      imageAlt: z.string().optional(),
+    })).default([]),
     draft: z.boolean().default(false),
   }),
 });

@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Icon from "./Icon.astro";
+import AchievementGallery from "./AchievementGallery.astro";
+
+interface Props { achievement: CollectionEntry<"achievements">; }
+const { achievement } = Astro.props;
+const { data, body } = achievement;
+---
+
+<details class="achievement-accordion">
+  <summary class="achievement-row">
+    <span class="achievement-icon"><Icon name={data.icon} size={25} /></span>
+    <div class="achievement-info">
+      <span class="achievement-category">{data.category}</span>
+      <h3>{data.title}</h3>
+    </div>
+    {data.date && <span class:list={["achievement-date", { "is-placeholder": data.placeholder }]}>
+      {data.placeholder && <span class="placeholder-dot"></span>}{data.date}
+    </span>}
+    <span class="toggle-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="achievement-content">
+    {body?.trim() && <p class="achievement-description">{body.trim()}</p>}
+    {data.gallery.length > 0 && <AchievementGallery achievement={achievement} />}
+  </div>
+</details>
+
+<style>
+  .achievement-accordion { border-bottom: 1px solid var(--color-line); }
+  summary.achievement-row { display: flex; flex-wrap: nowrap; border-bottom: 0; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { content: ""; }
+  summary:hover h3 { color: var(--color-accent); }
+  .achievement-info { min-width: 0; }
+  .achievement-info h3 { margin-bottom: 0; }
+  .achievement-date { margin-left: 0; }
+  .toggle-icon { position: relative; flex-shrink: 0; width: 30px; height: 30px; border: 1px solid var(--color-line); border-radius: 50%; }
+  .toggle-icon::before, .toggle-icon::after { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 1px; background: currentColor; transform: translate(-50%, -50%); }
+  .toggle-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  details[open] .toggle-icon::after { display: none; }
+  .achievement-content { padding: 0 0 30px 82px; }
+  .achievement-description { font-size: 1rem; color: var(--color-muted); }
+  .achievement-description:has(+ *) { margin-bottom: 22px; }
+  @media (max-width: 760px) {
+    summary.achievement-row { flex-wrap: wrap; gap: 14px; }
+    .achievement-info { flex: 1; flex-basis: calc(100% - 117px); }
+    .toggle-icon { order: 2; }
+    .achievement-date { order: 3; margin-left: 59px; }
+    .achievement-content { padding-left: 0; }
+  }
+</style>

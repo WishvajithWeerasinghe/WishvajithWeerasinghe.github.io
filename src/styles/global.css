@@ -174,7 +174,10 @@ h1, h2, h3, p { margin: 0; }
 .connect-panel h2 > span { font-family: Georgia, serif; font-style: italic; font-weight: 400; color: #748052; }
 .connect-bottom { display: flex; justify-content: space-between; align-items: center; gap: 28px; margin-top: 29px; }
 .connect-bottom > p { color: #58664d; font-size: 13px; line-height: 1.85; }
-.contact-actions { display: flex; align-items: center; gap: 12px; }
+.contact-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; font-size: 1rem; }
+.contact-actions > a { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; text-decoration: underline; text-underline-offset: 4px; }
+.contact-actions > a > span { min-width: 0; }
+.contact-actions > a:hover { color: var(--color-accent); }
 .copy-email { background: transparent; }
 .contact-coming-soon { display: inline-flex; align-items: center; gap: 12px; padding: 13px 18px; border: 1px solid #bdc7aa; border-radius: 3px; color: #526246; font-size: 12px; }
 .connect-links { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid #cbd4ba; margin-top: 33px; padding-top: 22px; font-size: 12px; }

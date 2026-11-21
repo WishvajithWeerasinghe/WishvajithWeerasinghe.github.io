@@ -3,7 +3,7 @@ import heroPortrait from "../assets/hero-portrait.png";
 // Start here when making the portfolio your own.
 // Empty contact links stay hidden until you add your real URLs.
 export const site = {
-  name: "Wishavjith Weerasinghe",
+  name: "Wishvajith Weerasinghe",
   initials: "WW",
   role: "university student",
   intro:
@@ -12,9 +12,9 @@ export const site = {
     "This is my little corner of the internet. A collection of things I’m building, ideas I’m exploring, and what I’m learning along the way.",
   availability: "",
   // Add an email address to enable the email and copy buttons.
-  email: "",
+  email: "manuwishvase@gmail.com",
   github: "",
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/wishvajith-weerasingha/",
 };
 
 // Hero portrait: a transparent café cutout from src/assets/hero-portrait.png.
